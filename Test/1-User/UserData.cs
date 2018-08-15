@@ -50,6 +50,14 @@ namespace Test
             };
         }
 
+        public void Modificar()
+        {
+            User.Name = _fixture.Create<string>().Substring(0, 10);
+            User.Address = _fixture.Create<string>().Substring(0, 15);
+            User.BirthDate = _fixture.Create<DateTime>();
+            User.DocumentNumber = _fixture.Create<string>().Substring(0, 8);
+        }
+
         private async Task ConsultarPais()
         {
             var response = (await GenericUtils.GetAsync(_url + "/ListByType?page=1&pageSize=99&type=0", ""))["resultado"].First;

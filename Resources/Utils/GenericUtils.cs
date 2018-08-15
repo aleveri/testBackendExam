@@ -11,14 +11,14 @@ namespace Resources
 {
     public class GenericUtils
     {
-        public static async Task<JObject> PutAsync(string url, dynamic param, string token)
+        public static async Task<dynamic> PutAsync(string url, dynamic param, string token)
         {
             var client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
             client.DefaultRequestHeaders.Add("Authorization", "Bearer " + token);
             client.DefaultRequestHeaders.Add("pst", "Tests");
             HttpResponseMessage response = await client.PutAsync(url, PrepareContent(param));
-            return JObject.Parse(response.Content.ReadAsStringAsync().Result);
+            return response;
         }
 
         public static async Task<dynamic> GetAsync(string url, string token)
@@ -48,7 +48,7 @@ namespace Resources
             return response;
         }
 
-        public static async Task<JObject> DeleteAsync(string url, string token)
+        public static async Task<dynamic> DeleteAsync(string url, string token)
         {
             var client = new HttpClient();
             client.DefaultRequestHeaders.Clear();
@@ -56,7 +56,7 @@ namespace Resources
             client.DefaultRequestHeaders.Add("pst", "Tests");
             var response = await client.DeleteAsync(url);
             response.EnsureSuccessStatusCode();
-            return JObject.Parse(response.Content.ReadAsStringAsync().Result);
+            return response;
         }
 
         private static ByteArrayContent PrepareContent(dynamic param)
